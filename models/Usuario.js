@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 // Importamos bcrypt para hashear (encriptar) las contraseñas
-import bcrypt from 'bcrypt';  
+import bcrypt from 'bcryptjs';  
 
 // Definimos el esquema del modelo Usuario
 const usuarioSchema = mongoose.Schema({
