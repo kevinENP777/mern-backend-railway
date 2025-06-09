@@ -24,14 +24,15 @@ const whitelist =[process.env.FRONTEND_URL] // hace una lista blanca de las urls
 
 const corsOptions ={
     origin: function(origin, callback){  // funcion que verifica si la url de la peticion esta en la lista blanca 
-        if (whitelist.includes(origin)) {
+        if (!origin || whitelist.includes(origin)) {
             // Puede consultar la API
             callback(null, true) // permite la peticion
         }else{
             // No esta permitido el request 
             callback(new Error("Error de Cors"))
         }
-    }
+    },
+    credentials:true,
 }
 app.use(cors(corsOptions)) // habilita CORS para las rutas de la API
 
