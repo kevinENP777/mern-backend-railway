@@ -16,6 +16,9 @@ const router = express.Router()
 
 // router.get('/', checkAuth, obtenerProyectos)
 // router.post('/', checkAuth, nuevoProyecto)
+router.post('/:id/colaboradores', checkAuth, agregarColaborador);
+
+
 
 router
     .route('/')
