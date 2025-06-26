@@ -107,7 +107,7 @@ const agregarColaborador = async (req, res) => {
         const error = new Error('Proyecto No Encontrado')
         return res.status(404).json({ msg: error.message })
     }
-
+/*
      // Validar que la persona que intenta agregar sea el creador
     if (proyecto.creador.toString() !== req.usuario._id.toString()) {
         const error = new Error('Acción no permitida')
@@ -139,7 +139,7 @@ const agregarColaborador = async (req, res) => {
     proyecto.colaboradores.push(usuario._id)
     await proyecto.save()
 
-    res.json({ msg: 'Colaborador agregado correctamente' })
+    res.json({ msg: 'Colaborador agregado correctamente' })*/
 
 };
 
