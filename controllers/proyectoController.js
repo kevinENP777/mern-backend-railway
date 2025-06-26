@@ -108,6 +108,39 @@ const agregarColaborador = async (req, res) => {
         return res.status(404).json({ msg: error.message })
     }
 
+     // Validar que la persona que intenta agregar sea el creador
+    if (proyecto.creador.toString() !== req.usuario._id.toString()) {
+        const error = new Error('Acción no permitida')
+        return res.status(403).json({ msg: error.message })
+    }
+
+    const { email } = req.body
+
+    const usuario = await Usuario.findOne({ email })
+
+    if (!usuario) {
+        const error = new Error('Usuario no encontrado')
+        return res.status(404).json({ msg: error.message })
+    }
+
+    // No permitir que el creador se agregue a sí mismo como colaborador
+    if (proyecto.creador.toString() === usuario._id.toString()) {
+        const error = new Error('El creador del proyecto no puede ser colaborador')
+        return res.status(400).json({ msg: error.message })
+    }
+
+    // Verificar si ya está en la lista de colaboradores
+    if (proyecto.colaboradores.includes(usuario._id)) {
+        const error = new Error('Usuario ya es colaborador')
+        return res.status(400).json({ msg: error.message })
+    }
+
+    // Si todo está bien, se agrega
+    proyecto.colaboradores.push(usuario._id)
+    await proyecto.save()
+
+    res.json({ msg: 'Colaborador agregado correctamente' })
+
 };
 
 const eliminarColaborador = async (req, res) => {};
